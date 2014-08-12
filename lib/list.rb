@@ -39,6 +39,12 @@ class List
     @id = results.first['id'].to_i
   end
 
+  def List.delete(selected_list)
+    current_list_int = current_list.to_i
+    DB.exec("DELETE FROM lists WHERE name = '#{selected_list}';")
+    DB.exec("DELETE FROM tasks WHERE list_id = '#{current_list_int}';")
+  end
+
   def List.find_by_name(list_name)
     results = DB.exec("SELECT * FROM lists WHERE name = '#{list_name}';")
     users_list = results[0]
@@ -49,7 +55,7 @@ class List
   end
 
   def List.find_list_tasks(current_id)
-    results = DB.exec("SELECT * FROM tasks WHERE list_id = '#{current_id}'")
+    results = DB.exec("SELECT * FROM tasks WHERE list_id = '#{current_id}';")
     lists = []
     results.each do |result|
       list_id = result['list_id']
@@ -59,4 +65,6 @@ class List
     end
     lists
   end
+
+
 end

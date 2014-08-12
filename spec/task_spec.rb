@@ -32,4 +32,9 @@ describe Task do
     expect(task1).to eq task2
   end
 
+  it 'should update the current finish date' do
+    task1 = Task.new('SQL', 1)
+    task1.finish_date('2015-01-01')
+    expect(task1.due_date).to eq '2015-01-01'
+  end
 end

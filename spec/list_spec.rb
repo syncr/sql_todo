@@ -53,7 +53,6 @@ describe List do
     my_list2 = List.new("Your_List")
     my_list1.save
     my_list2.save
-    # expect(List.find_by_name("My_List")).to eq my_list1
     expect(List.find_by_name("My_List")).to eq my_list1
   end
 
