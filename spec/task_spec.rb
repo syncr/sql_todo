@@ -34,7 +34,9 @@ describe Task do
 
   it 'should update the current finish date' do
     task1 = Task.new('SQL', 1)
-    task1.finish_date('2015-01-01')
-    expect(task1.due_date).to eq '2015-01-01'
+    task1.save
+    Task.finish('SQL', '2015-01-01')
+    # expect(Task.all.first.due_date).to eq '2015-01-01 00:00:00'
+    expect(DB.exec("SELECT due_date FROM tasks WHERE name = 'SQL';").first).to eq ({"due_date"=>"2015-01-01 00:00:00"})
   end
 end

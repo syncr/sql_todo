@@ -55,7 +55,7 @@ class List
   end
 
   def List.find_list_tasks(current_id)
-    results = DB.exec("SELECT * FROM tasks WHERE list_id = '#{current_id}';")
+    results = DB.exec("SELECT * FROM tasks WHERE list_id = '#{current_id}' ORDER BY due_date ASC;")
     lists = []
     results.each do |result|
       list_id = result['list_id']

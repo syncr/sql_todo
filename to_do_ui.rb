@@ -55,10 +55,11 @@ end
 
 def menu3
   show_tasks
-  puts "Pick a task option"
+  puts "\nPick a task option"
   puts "c = create task"
   puts "t = time to finish by"
   puts "f = finished"
+  puts "e = edit"
   puts "v = view finished tasks"
   puts "d = delete a task"
   puts "m = main menu"
@@ -70,6 +71,8 @@ def menu3
       time_to_finish
     when 'f'
       finished
+    when 'e'
+      edit
     when 'v'
       view_finished
     when 'd'
@@ -113,7 +116,9 @@ end
 
 def show_tasks
   current_list = List.current_list
+  puts "Here are your tasks sorted by date:"
   puts List.find_list_tasks(current_list)
+
 end
 
 def delete_task
@@ -146,7 +151,20 @@ def view_finished
 end
 
 def time_to_finish
+  puts "on which task would you like to set a finish date?"
+  finish_task = gets.chomp
+  puts "what is the date you would like to finish by?"
+  finish_date = gets.chomp
+  Task.finish(finish_task, finish_date)
+  puts "ok, your tasks -#{finish_task}- has been given a completion date of -#{finish_date}-"
+end
 
+def edit
+  puts "for what task would you like to add/edit a description?"
+  task_name = gets.chomp
+  puts "please modify your description for #{task_name}:"
+  task_description = gets.chomp
+  Task.edit_task(task_name, task_description)
 end
 
 start

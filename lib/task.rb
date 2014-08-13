@@ -39,6 +39,11 @@ class Task
     DB.exec("INSERT INTO tasks (name, list_id, due_date) VALUES ('#{@name}', #{@list_id}, '#{@due_date}');")
   end
 
+
+  def ==(another_task)
+    self.name == another_task.name && self.list_id == another_task.list_id
+  end
+
   def Task.delete(selected_task)
     DB.exec("DELETE FROM tasks WHERE name = '#{selected_task}';")
   end
@@ -58,14 +63,12 @@ class Task
     tasks
   end
 
-  def ==(another_task)
-    self.name == another_task.name && self.list_id == another_task.list_id
+  def Task.finish(finish_task, finish_date)
+    DB.exec("UPDATE tasks SET due_date = '#{finish_date}' WHERE name = '#{finish_task}';")
   end
 
-  def finish_date(date)
-    DB.exec("UPDATE tasks SET due_date = '#{date}' WHERE name = '#{name}';")
-    @due_date = date
+  def Task.edit_task(task_name, task_description)
+    DB.exec("UPDATE tasks SET description = '#{task_description}' WHERE name = '#{task_name}';")
   end
-
 end
 
